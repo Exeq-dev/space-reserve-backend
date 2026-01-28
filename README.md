@@ -67,6 +67,7 @@ El servidor quedará disponible en http://127.0.0.1:5000
 ## Autenticación JWT
 Los endpoints protegidos requieren el header Authorization con el formato:
 - Authorization: Bearer <TOKEN>
+
 El token se obtiene al iniciar sesión.
 
 ## Endpoints Principales
