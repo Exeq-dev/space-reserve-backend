@@ -9,22 +9,17 @@ spaces_bp = Blueprint("spaces", __name__)
 def create_space():
     data = request.get_json()
 
-    if not data:
-        return jsonify({"error": "No se enviaron datos"}), 400
-
-    if not data.get("name"):
-        return jsonify({"error": "El nombre es obligatorio"}), 400
-
-    if not data.get("location"):
-        return jsonify({"error": "La ubicación es obligatoria"}), 400
-
-    if not isinstance(data.get("capacity"), int):
-        return jsonify({"error": "La capacidad debe ser un número"}), 400
+    required = ["name", "description", "location", "capacity", "price_per_hour"]
+    if not all(key in data for key in required):
+        return jsonify({"error": "Faltan datos obligatorios"}), 400
 
     space = Space(
         name=data["name"],
+        description=data["description"],
         location=data["location"],
-        capacity=data["capacity"]
+        capacity=data["capacity"],
+        price_per_hour=data["price_per_hour"],
+        image_url=data.get("image_url"),
     )
 
     db.session.add(space)
@@ -33,8 +28,11 @@ def create_space():
     return jsonify({
         "id": space.id,
         "name": space.name,
+        "description": space.description,
         "location": space.location,
-        "capacity": space.capacity
+        "capacity": space.capacity,
+        "price_per_hour": space.price_per_hour,
+        "img_url": space.image_url,
     }), 201
 
 # LISTAR LOS ESPACIOS
@@ -47,8 +45,11 @@ def get_spaces():
         result.append({
             "id": space.id,
             "name": space.name,
+            "description": space.description,
             "location": space.location,
-            "capacity": space.capacity
+            "capacity": space.capacity,
+            "price_per_hour": space.price_per_hour,
+            "img_url": space.image_url,
         })
     
     return jsonify(result)
