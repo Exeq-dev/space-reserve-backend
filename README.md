@@ -28,73 +28,55 @@ Backend REST API para la gestión de espacios, reservas y usuarios, desarrollada
 - Consultar disponibilidad horaria por día
 - Cancelar reservas
 
-## Estructura del Proyecto
-backend/
-├── app/
-│   ├── models/
-│   │   ├── user.py
-│   │   ├── role.py
-│   │   ├── space.py
-│   │   └── reservation.py
-│   ├── routes/
-│   │   ├── auth.py
-│   │   ├── spaces.py
-│   │   ├── reservations.py
-│   │   └── health.py
-│   ├── __init__.py
-│   └── config.py
-├── migrations/
-├── .env.example
-├── .gitignore
-├── requirements.txt
-├── run.py
-├── seed.py
-└── wsgi.py
 
 ## Configuración del Proyecto
 ### Clonar el repositorio
-git clone https://github.com/Exeq-dev/space-reserve-backend.git
-cd space-reserve-backend
+- git clone https://github.com/Exeq-dev/space-reserve-backend.git
+- cd space-reserve-backend
 
 ### Crear entorno virtual
-python3 -m venv venv
-source venv/bin/activate
+- python3 -m venv venv
+- source venv/bin/activate
 
 ### Instalar dependencias
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
 ### Variables de entorno
 Crear un archivo .env en la raíz del proyecto basado en .env.example con las siguientes variables:
-FLASK_ENV=development
-DATABASE_URL=postgresql://user:password@localhost:5432/db_name
-SECRET_KEY=your-secret-key
-JWT_SECRET_KEY=your-jwt-secret
+- FLASK_ENV=development
+- DATABASE_URL=postgresql://user:password@localhost:5432/db_name
+- SECRET_KEY=your-secret-key
+- JWT_SECRET_KEY=your-jwt-secret
+
 El archivo .env no debe subirse al repositorio.
 
 ## Base de Datos
 Inicializar migraciones:
-flask db init
-flask db migrate
-flask db upgrade
+- flask db init
+- flask db migrate
+- flask db upgrade
+  
 Cargar datos iniciales (roles, espacios, etc.):
-python seed.py
+- python seed.py
 
 ## Ejecutar el servidor
-flask run
+- flask run
+  
 El servidor quedará disponible en http://127.0.0.1:5000
 
 ## Autenticación JWT
 Los endpoints protegidos requieren el header Authorization con el formato:
-Authorization: Bearer <TOKEN>
+- Authorization: Bearer <TOKEN>
+
 El token se obtiene al iniciar sesión.
 
 ## Endpoints Principales
-POST /auth/register Registro de usuario
-POST /auth/login Login y obtención de JWT
-GET /spaces Listar espacios
-POST /reservations Crear reserva
-GET /spaces/{id}/availability Consultar disponibilidad horaria
-DELETE /reservations/{id} Cancelar reserva
+- POST /auth/register Registro de usuario
+- POST /auth/login Login y obtención de JWT
+- GET /spaces Listar espacios
+- POST /reservations Crear reserva
+- GET /spaces/{id}/availability Consultar disponibilidad horaria
+- DELETE /reservations/{id} Cancelar reserva
 
 ## Seguridad
 - Contraseñas almacenadas con hash
